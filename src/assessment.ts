@@ -7,6 +7,41 @@ enum Domain {
     substance_use = "substance_use",
 }
 
+enum AssessmentType {
+    PHQ9 = "PHQ-9",
+    ASRM = "ASRM",
+    ASSIST = "ASSIST",
+}
+
+type Level2Assessment = {
+    type: AssessmentType,
+    domain: Domain,
+    minScore: number,
+};
+
+const level2Assessments: Level2Assessment[] = [
+    {
+        type: AssessmentType.PHQ9,
+        domain: Domain.depression,
+        minScore: 2,
+    },
+    {
+        type: AssessmentType.ASRM,
+        domain: Domain.mania,
+        minScore: 2,
+    },
+    {
+        type: AssessmentType.PHQ9,
+        domain: Domain.anxiety,
+        minScore: 2,
+    },
+    {
+        type: AssessmentType.ASSIST,
+        domain: Domain.substance_use,
+        minScore: 1,
+    },
+];
+
 class Question {
     constructor(public id: string, public domain: Domain) {
         if (!Domain.hasOwnProperty(domain)) throw Error('Invalid domain');
@@ -48,16 +83,25 @@ export class Assessment {
     }
 
     score() : Record<Domain, number> {
-        const scores: Record<Domain, number> = {
-            depression: 0,
-            anxiety: 0,
-            mania: 0,
-            substance_use: 0,
-        };
+        const scores = {} as Record<Domain, number>;
         
         this.answers.forEach((answer: Answer) => {
-            scores[answer.question.domain] += answer.value;
+            if (answer.question.domain in scores)
+                scores[answer.question.domain] += answer.value;
+            else
+                scores[answer.question.domain] = answer.value;
         });
         return scores;
+    }
+
+    getResult() : AssessmentType[] {
+        const scores = this.score();
+        const result: AssessmentType[] = [];
+        level2Assessments.forEach((assessment) => {
+            if (scores[assessment.domain] >= assessment.minScore) {
+                result.push(assessment.type);
+            }
+        });
+        return result;
     }
 }
