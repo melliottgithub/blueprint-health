@@ -1,19 +1,19 @@
 import Questions from "./questions.json";
 
-enum Domain {
+export enum Domain {
     depression = "depression",
     anxiety = "anxiety",
     mania = "mania",
     substance_use = "substance_use",
 }
 
-enum AssessmentType {
+export enum AssessmentType {
     PHQ9 = "PHQ-9",
     ASRM = "ASRM",
     ASSIST = "ASSIST",
 }
 
-type Level2Assessment = {
+export type Level2Assessment = {
     type: AssessmentType,
     domain: Domain,
     minScore: number,
@@ -42,16 +42,16 @@ const level2Assessments: Level2Assessment[] = [
     },
 ];
 
-class Question {
+export class Question {
     constructor(public id: string, public domain: Domain) {
-        if (!Domain.hasOwnProperty(domain)) throw Error('Invalid domain');
+        if (!Object.values(Domain).includes(domain)) throw Error('Invalid domain');
 
         this.id = id;
         this.domain = domain;
     }
 }
 
-class Answer {
+export class Answer {
     constructor(public question: Question, public value: number) {
         if (typeof value !== 'number') throw Error('Answer value must be a number');
         if (value < 0 || value > 4) throw Error('Answer value must be between 0 and 4');
@@ -64,9 +64,9 @@ class Answer {
 export class Assessment {
     answers: Answer[] = [];
 
-    constructor(answers: Record<string, any>[]) {
+    constructor(answers: Record<string, string>[]) {
         const questions = this.readQuestions();
-        answers.forEach((answer: Record<string, any>) => {
+        answers.forEach((answer: Record<string, string>) => {
             const question = questions[answer.question_id];
             if (question) {
                 this.answers.push(new Answer(question, Number.parseInt(answer.value)));
@@ -76,8 +76,8 @@ export class Assessment {
 
     readQuestions() : Record<string, Question>{
         const questions: Record<string, Question> = {};
-        Questions.forEach((question: any) => {
-            questions[question.question_id] = new Question(question.question_id, question.domain);
+        Questions.forEach((question) => {
+            questions[question.question_id] = new Question(question.question_id, question.domain as Domain);
         });
         return questions;
     }
