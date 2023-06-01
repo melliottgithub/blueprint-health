@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "t": "ts-node-dev --transpile-only --ignore-watch node_modules src/t.ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --collect-coverage"
+    "test": "jest --collect-coverage",
+    "docker-build": "tsc && docker build -t blueprint-health ."
   },
   "dependencies": {
     "cors": "^2.8.5",

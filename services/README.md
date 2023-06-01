@@ -24,3 +24,8 @@ yarn dev
 ```bash
 yarn test
 ```
+
+## Running docker
+```bash
+docker run --name <container-name> -e DB_URL=<dburl> -p 5000:5000 -d blueprint-health
+```
