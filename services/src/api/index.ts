@@ -1,5 +1,7 @@
-import { Assessment } from "../assessments";
+import Assessment from "./assessment";
+import Question from "./question";
 
 export default {
-    Assessment
+    Assessment,
+    Question
 };

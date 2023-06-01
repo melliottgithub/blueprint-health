@@ -3,7 +3,7 @@ dotenv.config();
 import Db from './db';
 import express from 'express';
 import cors from 'cors';
-import Assessment from './api/assessment';
+import Api from './api';
 
 const app = express();
 
@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-app.use('/assessment', Assessment);
+app.use('/assessment', Api.Assessment);
+app.use('/question', Api.Question);
 
 Db.sequelize.authenticate().then(() => {
     console.log('Connected to database');
