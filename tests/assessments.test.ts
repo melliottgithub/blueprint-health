@@ -1,4 +1,9 @@
-import { Assessment } from "../src/assessments";
+import dotenv from 'dotenv';
+dotenv.config();
+import Db from '../src/db';
+import { Assessment, Question } from "../src/assessments";
+import QuestionList from '../src/assessments/questions.json';
+import { Domain } from '../src/assessments/types';
 
 const answers: Record<string, string>[] = [
     {
@@ -42,24 +47,44 @@ const correctScores: Record<string, number> = {
     substance_use: 0
 };
 
-test('Create a valid Assessment', () => {
-    const assessment = new Assessment([{
+beforeAll(async () => {
+    await Db.sequelize.authenticate();
+    await Db.sequelize.sync();
+
+    await Db.sequelize.query('DELETE FROM answers');
+    await Db.sequelize.query('DELETE FROM questions');
+    await Db.sequelize.query('DELETE FROM assessments');
+
+});
+
+afterAll(async () => {
+    await Db.sequelize.close();
+});
+
+test('Create a valid Assessment', async () => {
+    const question = Question.new('question_x', Domain.depression);
+    await question.save();
+
+    const assessment = await Assessment.new([{
         value: "1",
-        question_id: "question_a"
+        question_id: "question_x"
     }]);
 
     expect(assessment.answers).toHaveLength(1);
+    await assessment.saveWithAnswers();
+
+    const retrievedAssessment = await Assessment.findByPk(assessment.id);
+    expect(retrievedAssessment).not.toBeNull();
+    expect(retrievedAssessment?.id).toBe(assessment.id);
 });
 
-test('Get Assessment Questions', () => {
-    const assessment = new Assessment([]);
-    const questions = assessment.readQuestions();
 
-    expect(Object.keys(questions).length).toBeGreaterThan(0);
-});
-
-test('Assessment score', () => {
-    const assessment = new Assessment(answers);
+test('Assessment score', async () => {
+    for (const question of QuestionList) {
+        const q = Question.new(question.question_id, question.domain as Domain);
+        await q.save();
+    }
+    const assessment = await Assessment.new(answers);
     const scores = assessment.score();
 
     for (const [domain, score] of Object.entries(scores)) {

@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "t": "ts-node-dev --transpile-only --ignore-watch node_modules src/t.ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest --collect-coverage"
@@ -14,13 +15,17 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.1.2",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "sequelize": "^6.31.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
+    "@types/pg": "^8.10.1",
+    "@types/sequelize": "^4.28.15",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "eslint": "^8.41.0",
