@@ -18,3 +18,9 @@ Using yarn run the following command:
 ```bash
 yarn start
 ```
+
+# Link to the deployed app
+
+The app was deployed on a single EC2 instance, S3 Bucket and served using CloudFront. The link to the app is:
+
+[https://blueprint-health.devmellio.com](https://blueprint-health.devmellio.com)
