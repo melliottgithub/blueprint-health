@@ -1,0 +1,10 @@
+.form-section  [class~="p-panel-header"] {
+    background-color: var(--indigo-500);
+    color: #ffffff;
+}
+
+.form-section [class~="p-panel-title"] {
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
