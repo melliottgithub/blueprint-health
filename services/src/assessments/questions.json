@@ -1,34 +1,42 @@
 [
   {
     "question_id": "question_a",
+    "title": "Little interest or pleasure in doing things?",
     "domain": "depression"
   },
   {
     "question_id": "question_b",
+    "title": "Feeling down, depressed, or hopeless?",
     "domain": "depression"
   },
   {
     "question_id": "question_c",
+    "title": "Sleeping less than usual, but still have a lot of energy?",
     "domain": "mania"
   },
   {
     "question_id": "question_d",
+    "title": "Starting lots more projects than usual or doing more risky things than usual?",
     "domain": "mania"
   },
   {
     "question_id": "question_e",
+    "title": "Feeling nervous, anxious, frightened, worried, or on edge?",
     "domain": "anxiety"
   },
   {
     "question_id": "question_f",
+    "title": "Feeling panic or being frightened?",
     "domain": "anxiety"
   },
   {
     "question_id": "question_g",
+    "title": "Avoiding situations that make you feel anxious?",
     "domain": "anxiety"
   },
    {
     "question_id": "question_h",
+    "title": "Drinking at least 4 drinks of any kind of alcohol in a single day?",
     "domain": "substance_use"
   }
 ]

@@ -62,7 +62,7 @@ afterAll(async () => {
 });
 
 test('Create a valid Assessment', async () => {
-    const question = Question.new('question_x', Domain.depression);
+    const question = Question.new('question_x', 'Question X', Domain.depression);
     await question.save();
 
     const assessment = await Assessment.new([{
@@ -81,7 +81,7 @@ test('Create a valid Assessment', async () => {
 
 test('Assessment score', async () => {
     for (const question of QuestionList) {
-        const q = Question.new(question.question_id, question.domain as Domain);
+        const q = Question.new(question.question_id, question.title, question.domain as Domain);
         await q.save();
     }
     const assessment = await Assessment.new(answers);

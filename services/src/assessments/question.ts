@@ -4,12 +4,14 @@ import Db from '../db';
 
 export class Question extends Model {
     id!: string;
+    title!: string;
     domain!: Domain;
 
-    static new(id: string, domain: Domain) {
+    static new(id: string, title: string, domain: Domain) {
         if (!Object.values(Domain).includes(domain)) throw Error('Invalid domain');
         const question = new Question();
         question.id = id;
+        question.title = title;
         question.domain = domain;
         return question;
     }
@@ -28,6 +30,9 @@ Question.init({
     id: {
         type: DataTypes.STRING,
         primaryKey: true
+    },
+    title: {
+        type: DataTypes.STRING,
     },
     domain: {
         type: DataTypes.STRING,
