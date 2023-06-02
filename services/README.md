@@ -1,5 +1,7 @@
 # Services
 
+This Typescript/Node project implement a REST API. It uses Express and Postgres. See *Project setup* section for additional details of libraries used.
+
 ## Project setup
 
 ```bash
@@ -13,6 +15,14 @@ yarn add -D jest ts-jest @types/jest
 ./node_modules/.bin/tsc --init
 ```
 
+## Environment variables
+
+Create a `.env` file in the root of the project with the following content:
+```bash
+DB_URL=postgres://<user>:<password>@<host>:<port>/<dbname>
+```
+```
+
 ## Running in local env
 
 ```bash
@@ -23,6 +33,14 @@ yarn dev
 ## Running unit tests
 ```bash
 yarn test
+```
+
+## Building docker image
+
+Script provided to build a docker image with the name `blueprint-health`:
+
+```bash
+yarn docker-build
 ```
 
 ## Running docker
