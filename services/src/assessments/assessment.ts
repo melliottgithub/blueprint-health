@@ -70,13 +70,13 @@ export class Assessment extends Model {
 
     getResult() : AssessmentType[] {
         const scores = this.score();
-        const result: AssessmentType[] = [];
+        const result: Set<AssessmentType> = new Set();
         level2Assessments.forEach((assessment) => {
             if (scores[assessment.domain] >= assessment.minScore) {
-                result.push(assessment.type);
+                result.add(assessment.type);
             }
         });
-        return result;
+        return Array.from(result);
     }
 
     async saveWithAnswers(): Promise<void> {

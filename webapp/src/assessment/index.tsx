@@ -90,7 +90,7 @@ function Module() {
       { /*<pre>
         assessment: {JSON.stringify(assessment, null, 2)}
   </pre> */}
-      {!message && isLastQuestion && (
+      {!message && !results && isLastQuestion && (
           <Message severity="info" text="This is the last question." />
       )}
       {message && (
